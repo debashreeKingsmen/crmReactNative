@@ -29,7 +29,7 @@ const LineChart = () => {
 
   return (
     <PreviewLayout
-      label="Click Below"
+      label="Click"
       selectedValue={direction}
       values={['daily', 'weekly']}
       setSelectedValue={setDirection}

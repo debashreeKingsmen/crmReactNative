@@ -2,7 +2,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import LineChart from '../src/component/LineChart';
 import HomeScreen from '../screens/HomeScreen';
-import {Image, TouchableOpacity} from 'react-native';
+import {Image, TouchableOpacity, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
@@ -32,10 +32,10 @@ export default function HomeTabs() {
             <>
             <TouchableOpacity
               onPress={() => navigation.navigate('Notification')}
-              style={{marginRight: 15}}>
+              style={[styles.editIconWrapper , {marginRight: 15}]}>
               <Image
-                scr="../assets/notification.png"
-                
+                source={require('../assets/notification.png')}
+                style={styles.editIcon}
               />
             </TouchableOpacity>
              <TouchableOpacity
@@ -62,3 +62,17 @@ export default function HomeTabs() {
     </Tab.Navigator>
   );
 }
+
+
+const styles = StyleSheet.create({
+  editIconWrapper: {
+    backgroundColor: '#fff',
+    borderRadius: 15,
+    padding: 4,
+    elevation: 3,
+  },
+  editIcon: {
+    width: 20,
+    height: 20,
+  },
+});

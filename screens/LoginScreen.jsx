@@ -12,7 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 
 
 const LoginScreen = () => {
-  const navigation = useNavigation(); // hook we just use to navigate
+  const navigation = useNavigation(); 
 
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
