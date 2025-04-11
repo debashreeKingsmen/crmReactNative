@@ -100,6 +100,17 @@ export default function ProfileScreen() {
           </View>
         </View>
       </Modal>
+
+
+       {/* {menuVisible && (
+              <View style={styles.menu}>
+                <Text style={styles.menuTitle}>👋 Hey, Kings Link</Text>
+                <Text style={styles.menuItem}>Home</Text>
+                <Text style={styles.menuItem}>Admin Settings</Text>
+                <Text style={styles.menuItem}>Profile Settings</Text>
+                <Text style={styles.logout}>Log out</Text>
+              </View>
+            )} */}
     </ScrollView>
   );
 }

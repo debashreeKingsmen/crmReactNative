@@ -1,7 +1,18 @@
-import {FlatList, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  FlatList,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  TouchableOpacity
+} from 'react-native';
 import React, {useState} from 'react';
 
 const ReportData = () => {
+  
+
   const [data, setData] = useState([
     {
       sl_no: 1,
@@ -65,89 +76,126 @@ const ReportData = () => {
     },
     {
       sl_no: 11,
-      name: 'William Carter',
-      email: 'carter@example.com',
-      outbound_calls: 33,
+      name: 'Daniel Harris',
+      email: 'harris@example.com',
+      outbound_calls: 24,
     },
     {
       sl_no: 12,
-      name: 'Sophia Moore',
-      email: 'moore@example.com',
-      outbound_calls: 26,
+      name: 'Sophia Clark',
+      email: 'sophia@example.com',
+      outbound_calls: 32,
     },
     {
       sl_no: 13,
-      name: 'Daniel Harris',
-      email: 'harris@example.com',
-      outbound_calls: 19,
-    },
-    {
-      sl_no: 14,
-      name: 'Emma Walker',
-      email: 'walker@example.com',
-      outbound_calls: 41,
-    },
-    {
-      sl_no: 15,
-      name: 'Alexander Hall',
-      email: 'hall@example.com',
-      outbound_calls: 23,
-    },
-    {
-      sl_no: 16,
-      name: 'Mia Lewis',
-      email: 'lewis@example.com',
-      outbound_calls: 37,
-    },
-    {
-      sl_no: 17,
-      name: 'Ethan Young',
-      email: 'young@example.com',
-      outbound_calls: 21,
-    },
-    {
-      sl_no: 18,
-      name: 'Charlotte Allen',
-      email: 'allen@example.com',
-      outbound_calls: 39,
-    },
-    {
-      sl_no: 19,
-      name: 'Benjamin Scott',
-      email: 'scott@example.com',
+      name: 'Benjamin Hall',
+      email: 'benjamin@example.com',
       outbound_calls: 29,
     },
     {
-      sl_no: 20,
-      name: 'Amelia King',
-      email: 'king@example.com',
+      sl_no: 14,
+      name: 'Ava Lewis',
+      email: 'ava@example.com',
+      outbound_calls: 21,
+    },
+    {
+      sl_no: 15,
+      name: 'Matthew Walker',
+      email: 'matthew@example.com',
+      outbound_calls: 26,
+    },
+    {
+      sl_no: 16,
+      name: 'Chloe Young',
+      email: 'chloe@example.com',
+      outbound_calls: 33,
+    },
+    {
+      sl_no: 17,
+      name: 'Anthony Allen',
+      email: 'anthony@example.com',
+      outbound_calls: 19,
+    },
+    {
+      sl_no: 18,
+      name: 'Grace King',
+      email: 'grace@example.com',
+      outbound_calls: 34,
+    },
+    {
+      sl_no: 19,
+      name: 'Andrew Scott',
+      email: 'andrew@example.com',
       outbound_calls: 31,
     },
+    {
+      sl_no: 20,
+      name: 'Ella Green',
+      email: 'ella@example.com',
+      outbound_calls: 23,
+    },
   ]);
+  
 
-  const renderItem = ({item, index}) => {
+  const [menuVisible, setMenuVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+
+  const toggleMenu = () => {
+    setMenuVisible(!menuVisible);
+  };
+
+  const filteredData = data.filter(item =>
+    item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.email.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const renderItem = ({item}) => {
     return (
       <View style={styles.row}>
-        <Text>{(index + 1).toString()}</Text>
+        <Text>{item.sl_no}</Text>
         <Text>{item.name}</Text>
         <Text>{item.email}</Text>
         <Text>{item.outbound_calls}</Text>
       </View>
     );
   };
-
+  
   return (
     <View style={styles.container}>
+      <View style={styles.parent}>
+        <TextInput 
+        style={styles.input} 
+        placeholder="Search here.." 
+        value={searchQuery}
+        onChangeText={(text) => setSearchQuery(text)}
+        />
+        <TouchableOpacity onPress={toggleMenu}>
+          <Image
+            source={require('../../assets/app.png')}
+            style={{width: 25, height: 25}}
+          />
+        </TouchableOpacity>
+      </View>
+
+      {menuVisible && (
+        <View style={styles.menu}>
+          <Text style={styles.menuItem}>Manage Column</Text>
+          <Text style={styles.menuItem}>Download Format</Text>
+          <Text style={styles.menuItem}>Export as CSV</Text>
+          <Text style={styles.menuItem}>Export as Excel</Text>
+        </View>
+      )}
       <ScrollView horizontal>
         <View style={styles.listContainer}>
           <View style={styles.header}>
             <Text style={[styles.headerText, {width: 45}]}>S.No</Text>
             <Text style={[styles.headerText, {width: 120}]}>Name</Text>
             <Text style={[styles.headerText, {width: 80}]}>Email</Text>
-            <Text style={[styles.headerText, {width:  92}]}>Outbound Calls</Text>
+            <Text style={[styles.headerText, {width: 92}]}>Outbound Calls</Text>
           </View>
           <FlatList
-            data={data}
+            data={filteredData}
             renderItem={renderItem}
             keyExtractor={(item, index) => index.toString()}
           />
@@ -190,5 +238,44 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     backgroundColor: '#fff',
     paddingHorizontal: 6,
+  },
+
+  parent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingBottom: 10,
+    position: 'relative', 
+  },
+  input: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 8,
+    marginRight: 10,
+    borderRadius: 5,
+  },
+  menu: {
+    position: 'absolute',
+    cursor:'pointer',
+    top: 50,
+    right: 11,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 10,
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    zIndex: 1,
+  },
+  menuTitle: {
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  menuItem: {
+    paddingVertical: 5,
+    fontSize: 16,
+    borderRadius: 4,
   },
 });
