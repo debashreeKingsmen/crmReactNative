@@ -6,13 +6,11 @@ import {
   Text,
   TextInput,
   View,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 import React, {useState} from 'react';
 
 const ReportData = () => {
-  
-
   const [data, setData] = useState([
     {
       sl_no: 1,
@@ -135,19 +133,18 @@ const ReportData = () => {
       outbound_calls: 23,
     },
   ]);
-  
 
   const [menuVisible, setMenuVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
 
-  const filteredData = data.filter(item =>
-    item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.email.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredData = data.filter(
+    item =>
+      item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.email.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   const renderItem = ({item}) => {
@@ -160,15 +157,15 @@ const ReportData = () => {
       </View>
     );
   };
-  
+
   return (
     <View style={styles.container}>
       <View style={styles.parent}>
-        <TextInput 
-        style={styles.input} 
-        placeholder="Search here.." 
-        value={searchQuery}
-        onChangeText={(text) => setSearchQuery(text)}
+        <TextInput
+          style={styles.input}
+          placeholder="Search here.."
+          value={searchQuery}
+          onChangeText={text => setSearchQuery(text)}
         />
         <TouchableOpacity onPress={toggleMenu}>
           <Image
@@ -180,10 +177,18 @@ const ReportData = () => {
 
       {menuVisible && (
         <View style={styles.menu}>
-          <Text style={styles.menuItem}>Manage Column</Text>
-          <Text style={styles.menuItem}>Download Format</Text>
-          <Text style={styles.menuItem}>Export as CSV</Text>
-          <Text style={styles.menuItem}>Export as Excel</Text>
+          {/* <TouchableOpacity>
+            <Text style={styles.menuItem}>Manage Column</Text>
+          </TouchableOpacity> */}
+          <TouchableOpacity>
+            <Text style={styles.menuItem}>Download Format</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={styles.menuItem}>Export as CSV</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={styles.menuItem}>Export as Excel</Text>
+          </TouchableOpacity>
         </View>
       )}
       <ScrollView horizontal>
@@ -244,7 +249,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingBottom: 10,
-    position: 'relative', 
+    position: 'relative',
   },
   input: {
     flex: 1,
@@ -256,7 +261,7 @@ const styles = StyleSheet.create({
   },
   menu: {
     position: 'absolute',
-    cursor:'pointer',
+    cursor: 'pointer',
     top: 50,
     right: 11,
     backgroundColor: '#fff',
@@ -264,7 +269,7 @@ const styles = StyleSheet.create({
     padding: 10,
     elevation: 5,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.2,
     shadowRadius: 4,
     zIndex: 1,

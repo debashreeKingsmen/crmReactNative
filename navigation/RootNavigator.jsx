@@ -7,6 +7,7 @@ import LineChart from '../src/component/LineChart';
 import ReportData from '../src/component/ReportData';
 import NotificationScreen from '../screens/NotificationScreen';
 import FeedScreen from '../screens/FeedScreen';
+import AdminSetting from '../src/component/AdminSetting';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,7 +26,8 @@ export default function RootNavigator() {
       <Stack.Screen name="Notification" component={NotificationScreen} />
       <Stack.Screen name="Report Chart" component={LineChart} />
       <Stack.Screen name="Report Table" component={ReportData} />
-      <Stack.Screen name="FeedScreen" component={FeedScreen} />
+      <Stack.Screen name="Feed Screen" component={FeedScreen} />
+      <Stack.Screen name="Admin Setting" component={AdminSetting} />
       <Stack.Screen
         name="Home"
         component={HomeTabs}
