@@ -1,307 +1,3 @@
-// import {
-//   FlatList,
-//   Image,
-//   ScrollView,
-//   StyleSheet,
-//   Text,
-//   TextInput,
-//   View,
-//   TouchableOpacity,
-// } from 'react-native';
-// import React, {useState, useEffect} from 'react';
-
-// const ReportData = () => {
-//   const fullData = [
-//     {
-//       sl_no: 1,
-//       name: 'John Doe',
-//       email: 'doe@example.com',
-//       outbound_calls: 25,
-//     },
-//     {
-//       sl_no: 2,
-//       name: 'Jane Smith',
-//       email: 'smith@example.com',
-//       outbound_calls: 30,
-//     },
-//     {
-//       sl_no: 3,
-//       name: 'Robert Johnson',
-//       email: 'robert@example.com',
-//       outbound_calls: 15,
-//     },
-//     {
-//       sl_no: 4,
-//       name: 'Emily Davis',
-//       email: 'davis@example.com',
-//       outbound_calls: 40,
-//     },
-//     {
-//       sl_no: 5,
-//       name: 'Michael Brown',
-//       email: 'brown@example.com',
-//       outbound_calls: 22,
-//     },
-//     {
-//       sl_no: 6,
-//       name: 'Sarah Wilson',
-//       email: 'wilson@example.com',
-//       outbound_calls: 18,
-//     },
-//     {
-//       sl_no: 7,
-//       name: 'David Lee',
-//       email: 'lee@example.com',
-//       outbound_calls: 35,
-//     },
-//     {
-//       sl_no: 8,
-//       name: 'Laura White',
-//       email: 'white@example.com',
-//       outbound_calls: 28,
-//     },
-//     {
-//       sl_no: 9,
-//       name: 'James Anderson',
-//       email: 'anderson@example.com',
-//       outbound_calls: 20,
-//     },
-//     {
-//       sl_no: 10,
-//       name: 'Olivia Martinez',
-//       email: 'olivia@example.com',
-//       outbound_calls: 27,
-//     },
-//     {
-//       sl_no: 11,
-//       name: 'Daniel Harris',
-//       email: 'harris@example.com',
-//       outbound_calls: 24,
-//     },
-//     {
-//       sl_no: 12,
-//       name: 'Sophia Clark',
-//       email: 'sophia@example.com',
-//       outbound_calls: 32,
-//     },
-//     {
-//       sl_no: 13,
-//       name: 'Benjamin Hall',
-//       email: 'benjamin@example.com',
-//       outbound_calls: 29,
-//     },
-//     {
-//       sl_no: 14,
-//       name: 'Ava Lewis',
-//       email: 'ava@example.com',
-//       outbound_calls: 21,
-//     },
-//     {
-//       sl_no: 15,
-//       name: 'Matthew Walker',
-//       email: 'matthew@example.com',
-//       outbound_calls: 26,
-//     },
-//     {
-//       sl_no: 16,
-//       name: 'Chloe Young',
-//       email: 'chloe@example.com',
-//       outbound_calls: 33,
-//     },
-//     {
-//       sl_no: 17,
-//       name: 'Anthony Allen',
-//       email: 'anthony@example.com',
-//       outbound_calls: 19,
-//     },
-//     {
-//       sl_no: 18,
-//       name: 'Grace King',
-//       email: 'grace@example.com',
-//       outbound_calls: 34,
-//     },
-//     {
-//       sl_no: 19,
-//       name: 'Andrew Scott',
-//       email: 'andrew@example.com',
-//       outbound_calls: 31,
-//     },
-//     {
-//       sl_no: 20,
-//       name: 'Ella Green',
-//       email: 'ella@example.com',
-//       outbound_calls: 23,
-//     },
-//   ];
-
-//   const itemsPerPage = 10;
-//  const [searchQuery, setSearchQuery] = useState('');
-//   const [page, setPage] = useState(1);
-//   const [visibleData, setVisibleData] = useState(data.slice(0, itemsPerPage));
-//   const [menuVisible, setMenuVisible] = useState(false);
- 
-
-//   const toggleMenu = () => {
-//     setMenuVisible(!menuVisible);
-//   };
-
-//   const filteredData = data.filter(
-//     item =>
-//       item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-//       item.email.toLowerCase().includes(searchQuery.toLowerCase()),
-//   );
-
-//   const loadMoreData = () =>{
-//     const start = page * itemsPerPage;
-//     const end = start + itemsPerPage;
-//     const moreData = data.slice(start, end);
-
-//     if(moreData.length > 0) {
-//       setVisibleData(prev => [...prev, ...moreData]);
-//       setPage(prev => prev+1)
-//     }
-//   }
-
-//   const renderItem = ({item}) => {
-//     return (
-//       <View style={styles.row}>
-//         <Text>{item.sl_no}</Text>
-//         <Text>{item.name}</Text>
-//         <Text>{item.email}</Text>
-//         <Text>{item.outbound_calls}</Text>
-//       </View>
-//     );
-//   };
-
-//   return (
-//     <View style={styles.container}>
-//       <View style={styles.parent}>
-//         <TextInput
-//           style={styles.input}
-//           placeholder="Search here.."
-//           value={searchQuery}
-//           onChangeText={text => setSearchQuery(text)}
-//         />
-//         <TouchableOpacity onPress={toggleMenu}>
-//           <Image
-//             source={require('../../assets/app.png')}
-//             style={{width: 25, height: 25}}
-//           />
-//         </TouchableOpacity>
-//       </View>
-
-//       {menuVisible && (
-//         <View style={styles.menu}>
-//           {/* <TouchableOpacity>
-//             <Text style={styles.menuItem}>Manage Column</Text>
-//           </TouchableOpacity> */}
-//           <TouchableOpacity>
-//             <Text style={styles.menuItem}>Download Format</Text>
-//           </TouchableOpacity>
-//           <TouchableOpacity>
-//             <Text style={styles.menuItem}>Export as CSV</Text>
-//           </TouchableOpacity>
-//           <TouchableOpacity>
-//             <Text style={styles.menuItem}>Export as Excel</Text>
-//           </TouchableOpacity>
-//         </View>
-//       )}
-//       <ScrollView horizontal>
-//         <View style={styles.listContainer}>
-//           <View style={styles.header}>
-//             <Text style={[styles.headerText, {width: 45}]}>S.No</Text>
-//             <Text style={[styles.headerText, {width: 120}]}>Name</Text>
-//             <Text style={[styles.headerText, {width: 80}]}>Email</Text>
-//             <Text style={[styles.headerText, {width: 92}]}>Outbound Calls</Text>
-//           </View>
-//           <FlatList
-//             data={filteredData}
-//             renderItem={renderItem}
-//             keyExtractor={(item, index) => index.toString()}
-//           />
-//         </View>
-//       </ScrollView>
-//     </View>
-//   );
-// };
-
-// export default ReportData;
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     padding: 10,
-//     paddingTop: 20,
-//     backgroundColor: '#fff',
-//   },
-//   listContainer: {
-//     flex: 1,
-//   },
-//   header: {
-//     backgroundColor: 'skyblue',
-//     flexDirection: 'row',
-//     paddingVertical: 10,
-//     borderBottomWidth: 1,
-//     borderBottomColor: '#e1e1e1',
-//   },
-//   headerText: {
-//     fontSize: 16,
-//     flex: 1,
-//   },
-//   row: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-//     marginVertical: 0,
-//     marginHorizontal: 1,
-//     elevation: 1,
-//     borderRadius: 3,
-//     paddingVertical: 10,
-//     backgroundColor: '#fff',
-//     paddingHorizontal: 6,
-//   },
-
-//   parent: {
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     paddingBottom: 10,
-//     position: 'relative',
-//   },
-//   input: {
-//     flex: 1,
-//     borderWidth: 1,
-//     borderColor: '#ccc',
-//     padding: 8,
-//     marginRight: 10,
-//     borderRadius: 5,
-//   },
-//   menu: {
-//     position: 'absolute',
-//     cursor: 'pointer',
-//     top: 50,
-//     right: 11,
-//     backgroundColor: '#fff',
-//     borderRadius: 10,
-//     padding: 10,
-//     elevation: 5,
-//     shadowColor: '#000',
-//     shadowOffset: {width: 0, height: 2},
-//     shadowOpacity: 0.2,
-//     shadowRadius: 4,
-//     zIndex: 1,
-//   },
-//   menuTitle: {
-//     fontWeight: 'bold',
-//     marginBottom: 10,
-//   },
-//   menuItem: {
-//     paddingVertical: 5,
-//     fontSize: 16,
-//     borderRadius: 4,
-//   },
-// });
-
-
-
 import {
   FlatList,
   Image,
@@ -316,135 +12,51 @@ import React, {useState} from 'react';
 
 const ReportData = () => {
   const [data, setData] = useState([
-    {
-      sl_no: 1,
-      name: 'John Doe',
-      email: 'doe@example.com',
-      outbound_calls: 25,
-    },
-    {
-      sl_no: 2,
-      name: 'Jane Smith',
-      email: 'smith@example.com',
-      outbound_calls: 30,
-    },
-    {
-      sl_no: 3,
-      name: 'Robert Johnson',
-      email: 'robert@example.com',
-      outbound_calls: 15,
-    },
-    {
-      sl_no: 4,
-      name: 'Emily Davis',
-      email: 'davis@example.com',
-      outbound_calls: 40,
-    },
-    {
-      sl_no: 5,
-      name: 'Michael Brown',
-      email: 'brown@example.com',
-      outbound_calls: 22,
-    },
-    {
-      sl_no: 6,
-      name: 'Sarah Wilson',
-      email: 'wilson@example.com',
-      outbound_calls: 18,
-    },
-    {
-      sl_no: 7,
-      name: 'David Lee',
-      email: 'lee@example.com',
-      outbound_calls: 35,
-    },
-    {
-      sl_no: 8,
-      name: 'Laura White',
-      email: 'white@example.com',
-      outbound_calls: 28,
-    },
-    {
-      sl_no: 9,
-      name: 'James Anderson',
-      email: 'anderson@example.com',
-      outbound_calls: 20,
-    },
-    {
-      sl_no: 10,
-      name: 'Olivia Martinez',
-      email: 'olivia@example.com',
-      outbound_calls: 27,
-    },
-    {
-      sl_no: 11,
-      name: 'Daniel Harris',
-      email: 'harris@example.com',
-      outbound_calls: 24,
-    },
-    {
-      sl_no: 12,
-      name: 'Sophia Clark',
-      email: 'sophia@example.com',
-      outbound_calls: 32,
-    },
-    {
-      sl_no: 13,
-      name: 'Benjamin Hall',
-      email: 'benjamin@example.com',
-      outbound_calls: 29,
-    },
-    {
-      sl_no: 14,
-      name: 'Ava Lewis',
-      email: 'ava@example.com',
-      outbound_calls: 21,
-    },
-    {
-      sl_no: 15,
-      name: 'Matthew Walker',
-      email: 'matthew@example.com',
-      outbound_calls: 26,
-    },
-    {
-      sl_no: 16,
-      name: 'Chloe Young',
-      email: 'chloe@example.com',
-      outbound_calls: 33,
-    },
-    {
-      sl_no: 17,
-      name: 'Anthony Allen',
-      email: 'anthony@example.com',
-      outbound_calls: 19,
-    },
-    {
-      sl_no: 18,
-      name: 'Grace King',
-      email: 'grace@example.com',
-      outbound_calls: 34,
-    },
-    {
-      sl_no: 19,
-      name: 'Andrew Scott',
-      email: 'andrew@example.com',
-      outbound_calls: 31,
-    },
-    {
-      sl_no: 20,
-      name: 'Ella Green',
-      email: 'ella@example.com',
-      outbound_calls: 23,
-    },
+    {sl_no: 1, name: 'John Doe', email: 'doe@example.com', outbound_calls: 25},
+    {sl_no: 2, name: 'Jane Smith', email: 'smith@example.com', outbound_calls: 30},
+    {sl_no: 3, name: 'Robert Johnson', email: 'robert@example.com', outbound_calls: 15},
+    {sl_no: 4, name: 'Emily Davis', email: 'davis@example.com', outbound_calls: 40},
+    {sl_no: 5, name: 'Michael Brown', email: 'brown@example.com', outbound_calls: 22},
+    {sl_no: 6, name: 'Sarah Wilson', email: 'wilson@example.com', outbound_calls: 18},
+    {sl_no: 7, name: 'David Lee', email: 'lee@example.com', outbound_calls: 35},
+    {sl_no: 8, name: 'Laura White', email: 'white@example.com', outbound_calls: 28},
+    {sl_no: 9, name: 'James Anderson', email: 'anderson@example.com', outbound_calls: 20},
+    {sl_no: 10, name: 'Olivia Martinez', email: 'olivia@example.com', outbound_calls: 27},
+    {sl_no: 11, name: 'Daniel Harris', email: 'harris@example.com', outbound_calls: 24},
+    {sl_no: 12, name: 'Sophia Clark', email: 'sophia@example.com', outbound_calls: 32},
+    {sl_no: 13, name: 'Benjamin Hall', email: 'benjamin@example.com', outbound_calls: 29},
+    {sl_no: 14, name: 'Ava Lewis', email: 'ava@example.com', outbound_calls: 21},
+    {sl_no: 15, name: 'Matthew Walker', email: 'matthew@example.com', outbound_calls: 26},
+    {sl_no: 16, name: 'Chloe Young', email: 'chloe@example.com', outbound_calls: 33},
+    {sl_no: 17, name: 'Anthony Allen', email: 'anthony@example.com', outbound_calls: 19},
+    {sl_no: 18, name: 'Grace King', email: 'grace@example.com', outbound_calls: 34},
+    {sl_no: 19, name: 'Andrew Scott', email: 'andrew@example.com', outbound_calls: 31},
+    {sl_no: 20, name: 'Ella Green', email: 'ella@example.com', outbound_calls: 23},
+    {sl_no: 21, name: 'Liam Turner', email: 'liam@example.com', outbound_calls: 22},
+    {sl_no: 22, name: 'Mia Ramirez', email: 'mia@example.com', outbound_calls: 28},
+    {sl_no: 23, name: 'Noah Hughes', email: 'noah@example.com', outbound_calls: 30},
+    {sl_no: 24, name: 'Amelia Cox', email: 'amelia@example.com', outbound_calls: 25},
+    {sl_no: 25, name: 'Ethan Foster', email: 'ethan@example.com', outbound_calls: 18},
+    {sl_no: 26, name: 'Isabella Ward', email: 'isabella@example.com', outbound_calls: 32},
+    {sl_no: 27, name: 'Logan Simmons', email: 'logan@example.com', outbound_calls: 21},
+    {sl_no: 28, name: 'Charlotte Butler', email: 'charlotte@example.com', outbound_calls: 29},
+    {sl_no: 29, name: 'Lucas Perry', email: 'lucas@example.com', outbound_calls: 24},
+    {sl_no: 30, name: 'Harper Bryant', email: 'harper@example.com', outbound_calls: 27},
+    {sl_no: 31, name: 'Mason Powell', email: 'mason@example.com', outbound_calls: 26},
+    {sl_no: 32, name: 'Evelyn Bell', email: 'evelyn@example.com', outbound_calls: 33},
+    {sl_no: 33, name: 'Henry Hayes', email: 'henry@example.com', outbound_calls: 20},
+    {sl_no: 34, name: 'Abigail Coleman', email: 'abigail@example.com', outbound_calls: 19},
+    {sl_no: 35, name: 'Jackson Jenkins', email: 'jackson@example.com', outbound_calls: 31},
+    {sl_no: 36, name: 'Emily Rivera', email: 'emily@example.com', outbound_calls: 34},
+    {sl_no: 37, name: 'Aiden Brooks', email: 'aiden@example.com', outbound_calls: 23},
+    {sl_no: 38, name: 'Sofia Price', email: 'sofia@example.com', outbound_calls: 36},
+    {sl_no: 39, name: 'Sebastian Murphy', email: 'sebastian@example.com', outbound_calls: 22},
+    {sl_no: 40, name: 'Ella Reed', email: 'ella.reed@example.com', outbound_calls: 35},
   ]);
 
-  const [page, setPage] = useState(10);
-  const [menuVisible, setMenuVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-
-  const toggleMenu = () => {
-    setMenuVisible(!menuVisible);
-  };
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   const filteredData = data.filter(
     item =>
@@ -452,15 +64,26 @@ const ReportData = () => {
       item.email.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
-  const renderItem = ({item}) => {
-    return (
-      <View style={styles.row}>
-        <Text>{item.sl_no}</Text>
-        <Text>{item.name}</Text>
-        <Text>{item.email}</Text>
-        <Text>{item.outbound_calls}</Text>
-      </View>
-    );
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentData = filteredData.slice(startIndex, endIndex);
+
+  const renderItem = ({item}) => (
+    <View style={styles.row}>
+      <Text style={{width: 45}}>{item.sl_no}</Text>
+      <Text style={{width: 120}}>{item.name}</Text>
+      <Text style={{width: 80}}>{item.email}</Text>
+      <Text style={{width: 92}}>{item.outbound_calls}</Text>
+    </View>
+  );
+
+  const handlePrev = () => {
+    if (currentPage > 1) setCurrentPage(prev => prev - 1);
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) setCurrentPage(prev => prev + 1);
   };
 
   return (
@@ -470,9 +93,12 @@ const ReportData = () => {
           style={styles.input}
           placeholder="Search here.."
           value={searchQuery}
-          onChangeText={text => setSearchQuery(text)}
+          onChangeText={text => {
+            setSearchQuery(text);
+            setCurrentPage(1); // Reset to first page on search
+          }}
         />
-        <TouchableOpacity onPress={toggleMenu}>
+        <TouchableOpacity>
           <Image
             source={require('../../assets/app.png')}
             style={{width: 25, height: 25}}
@@ -480,22 +106,6 @@ const ReportData = () => {
         </TouchableOpacity>
       </View>
 
-      {menuVisible && (
-        <View style={styles.menu}>
-          {/* <TouchableOpacity>
-            <Text style={styles.menuItem}>Manage Column</Text>
-          </TouchableOpacity> */}
-          <TouchableOpacity>
-            <Text style={styles.menuItem}>Download Format</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={styles.menuItem}>Export as CSV</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={styles.menuItem}>Export as Excel</Text>
-          </TouchableOpacity>
-        </View>
-      )}
       <ScrollView horizontal>
         <View style={styles.listContainer}>
           <View style={styles.header}>
@@ -505,12 +115,32 @@ const ReportData = () => {
             <Text style={[styles.headerText, {width: 92}]}>Outbound Calls</Text>
           </View>
           <FlatList
-            data={filteredData}
+            data={currentData}
             renderItem={renderItem}
             keyExtractor={(item, index) => index.toString()}
           />
         </View>
       </ScrollView>
+
+      <View style={styles.paginationContainer}>
+        <TouchableOpacity
+          onPress={handlePrev}
+          disabled={currentPage === 1}
+          style={[styles.pageButton, currentPage === 1 && styles.disabledBtn]}>
+          <Text>Prev</Text>
+        </TouchableOpacity>
+
+        <View style={styles.pageNumber}>
+          <Text style={styles.activePage}>{currentPage}</Text>
+        </View>
+
+        <TouchableOpacity
+          onPress={handleNext}
+          disabled={currentPage === totalPages}
+          style={[styles.pageButton, currentPage === totalPages && styles.disabledBtn]}>
+          <Text>Next</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -536,25 +166,21 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 16,
-    flex: 1,
+    fontWeight: 'bold',
   },
   row: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     marginVertical: 0,
     marginHorizontal: 1,
-    elevation: 1,
-    borderRadius: 3,
     paddingVertical: 10,
     backgroundColor: '#fff',
     paddingHorizontal: 6,
   },
-
   parent: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingBottom: 10,
-    position: 'relative',
   },
   input: {
     flex: 1,
@@ -564,28 +190,29 @@ const styles = StyleSheet.create({
     marginRight: 10,
     borderRadius: 5,
   },
-  menu: {
-    position: 'absolute',
-    cursor: 'pointer',
-    top: 50,
-    right: 11,
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 10,
-    elevation: 5,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    zIndex: 1,
+  paginationContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 15,
+    gap: 10,
   },
-  menuTitle: {
+  pageButton: {
+    backgroundColor: '#f1f1f1',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 5,
+  },
+  disabledBtn: {
+    opacity: 0.5,
+  },
+  pageNumber: {
+    backgroundColor: '#8cd3f2',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 5,
+  },
+  activePage: {
+    color: '#000',
     fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  menuItem: {
-    paddingVertical: 5,
-    fontSize: 16,
-    borderRadius: 4,
   },
 });
