@@ -62,18 +62,18 @@ export default function HomeTabs() {
               </TouchableOpacity>
               {menuVisible && (
                 <View style={styles.menu}>
-                   {/* <Text style={styles.menuItem}>👋  Hey, Kings Link</Text> */}
+                   <Text style={styles.menuItem}>👋  Hey, Kings Link</Text>
                   <TouchableOpacity  onPress={() => navigation.navigate('Home')}>
                     <Text style={styles.menuItem}>Home</Text>
                   </TouchableOpacity>
-                  {/* <TouchableOpacity 
+                  <TouchableOpacity 
                    onPress={() => navigation.navigate('Admin Setting')}>
                     <Text style={styles.menuItem}>Admin Setting</Text>
-                  </TouchableOpacity> */}
-                  {/* <TouchableOpacity
+                  </TouchableOpacity>
+                  <TouchableOpacity
                     onPress={() => navigation.navigate('Profile')}>
                     <Text style={styles.menuItem}>Profile Setting</Text>
-                  </TouchableOpacity> */}
+                  </TouchableOpacity>
                   <TouchableOpacity>
                     <Text style={styles.menuItem}>Logout</Text>
                   </TouchableOpacity>
