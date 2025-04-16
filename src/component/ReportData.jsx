@@ -7,8 +7,14 @@ import {
   TextInput,
   View,
   TouchableOpacity,
+  PermissionsAndroid,
+   Platform, 
+   Alert
+
 } from 'react-native';
 import React, {useState} from 'react';
+import XLSX from 'xlsx';
+import RNFS from 'react-native-fs';
 
 const ReportData = () => {
   const [data, setData] = useState([
@@ -32,30 +38,18 @@ const ReportData = () => {
     {sl_no: 18, name: 'Grace King', email: 'grace@example.com', outbound_calls: 34},
     {sl_no: 19, name: 'Andrew Scott', email: 'andrew@example.com', outbound_calls: 31},
     {sl_no: 20, name: 'Ella Green', email: 'ella@example.com', outbound_calls: 23},
-    {sl_no: 21, name: 'Liam Turner', email: 'liam@example.com', outbound_calls: 22},
-    {sl_no: 22, name: 'Mia Ramirez', email: 'mia@example.com', outbound_calls: 28},
-    {sl_no: 23, name: 'Noah Hughes', email: 'noah@example.com', outbound_calls: 30},
-    {sl_no: 24, name: 'Amelia Cox', email: 'amelia@example.com', outbound_calls: 25},
-    {sl_no: 25, name: 'Ethan Foster', email: 'ethan@example.com', outbound_calls: 18},
-    {sl_no: 26, name: 'Isabella Ward', email: 'isabella@example.com', outbound_calls: 32},
-    {sl_no: 27, name: 'Logan Simmons', email: 'logan@example.com', outbound_calls: 21},
-    {sl_no: 28, name: 'Charlotte Butler', email: 'charlotte@example.com', outbound_calls: 29},
-    {sl_no: 29, name: 'Lucas Perry', email: 'lucas@example.com', outbound_calls: 24},
-    {sl_no: 30, name: 'Harper Bryant', email: 'harper@example.com', outbound_calls: 27},
-    {sl_no: 31, name: 'Mason Powell', email: 'mason@example.com', outbound_calls: 26},
-    {sl_no: 32, name: 'Evelyn Bell', email: 'evelyn@example.com', outbound_calls: 33},
-    {sl_no: 33, name: 'Henry Hayes', email: 'henry@example.com', outbound_calls: 20},
-    {sl_no: 34, name: 'Abigail Coleman', email: 'abigail@example.com', outbound_calls: 19},
-    {sl_no: 35, name: 'Jackson Jenkins', email: 'jackson@example.com', outbound_calls: 31},
-    {sl_no: 36, name: 'Emily Rivera', email: 'emily@example.com', outbound_calls: 34},
-    {sl_no: 37, name: 'Aiden Brooks', email: 'aiden@example.com', outbound_calls: 23},
-    {sl_no: 38, name: 'Sofia Price', email: 'sofia@example.com', outbound_calls: 36},
-    {sl_no: 39, name: 'Sebastian Murphy', email: 'sebastian@example.com', outbound_calls: 22},
-    {sl_no: 40, name: 'Ella Reed', email: 'ella.reed@example.com', outbound_calls: 35},
+   
   ]);
 
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [menuVisible, setMenuVisible] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuVisible(!menuVisible);
+  };
+
+
   const itemsPerPage = 5;
 
   const filteredData = data.filter(
@@ -68,6 +62,70 @@ const ReportData = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentData = filteredData.slice(startIndex, endIndex);
+
+
+  const requestStoragePermission = async () => {
+    if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: 'Storage Permission Required',
+            message: 'App needs access to your storage to download the file',
+            buttonNeutral: 'Ask Me Later',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK',
+          },
+        );
+        return granted === PermissionsAndroid.RESULTS.GRANTED;
+      } catch (err) {
+        console.warn(err);
+        return false;
+      }
+    } else {
+      return true;
+    }
+  };
+
+
+  const exportToCSV = async () => {
+    const isPermitted = await requestStoragePermission();
+    if (!isPermitted) return;
+  
+    const header = 'S.No,Name,Email,Outbound Calls\n';
+    const csvRows = currentData
+      .map(row => `${row.sl_no},${row.name},${row.email},${row.outbound_calls}`)
+      .join('\n');
+    const csvString = header + csvRows;
+  
+    const path = `${RNFS.DownloadDirectoryPath}/ReportData.csv`;
+    RNFS.writeFile(path, csvString, 'utf8')
+      .then(() => Alert.alert('Success', `CSV file saved to:\n${path}`))
+      .catch(err => console.log('CSV export error:', err));
+  };
+  
+  const exportToExcel = async () => {
+    const isPermitted = await requestStoragePermission();
+    if (!isPermitted) return;
+  
+    const worksheet = XLSX.utils.json_to_sheet(currentData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Report');
+    const excelData = XLSX.write(workbook, {type: 'binary', bookType: 'xlsx'});
+  
+    const buffer = new ArrayBuffer(excelData.length);
+    const view = new Uint8Array(buffer);
+    for (let i = 0; i < excelData.length; ++i) {
+      view[i] = excelData.charCodeAt(i) & 0xff;
+    }
+  
+    const path = `${RNFS.DownloadDirectoryPath}/ReportData.xlsx`;
+    RNFS.writeFile(path, buffer, 'ascii')
+      .then(() => Alert.alert('Success', `Excel file saved to:\n${path}`))
+      .catch(err => console.log('Excel export error:', err));
+  };
+  
+  
 
   const renderItem = ({item}) => (
     <View style={styles.row}>
@@ -98,13 +156,30 @@ const ReportData = () => {
             setCurrentPage(1); // Reset to first page on search
           }}
         />
-        <TouchableOpacity>
+          <TouchableOpacity onPress={toggleMenu}>
           <Image
             source={require('../../assets/app.png')}
             style={{width: 25, height: 25}}
           />
         </TouchableOpacity>
       </View>
+
+      {menuVisible && (
+        <View style={styles.menu}>
+          {/* <TouchableOpacity>
+            <Text style={styles.menuItem}>Manage Column</Text>
+          </TouchableOpacity> */}
+          <TouchableOpacity>
+            <Text style={styles.menuItem}>Download Format</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={exportToCSV}>
+            <Text style={styles.menuItem}>Export as CSV</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={exportToExcel}>
+            <Text style={styles.menuItem}>Export as Excel</Text>
+          </TouchableOpacity>
+        </View>
+      )}
 
       <ScrollView horizontal>
         <View style={styles.listContainer}>
@@ -167,6 +242,30 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  menu: {
+    position: 'absolute',
+    cursor: 'pointer',
+    top: 50,
+    right: 11,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 10,
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    zIndex: 1,
+  },
+  menuTitle: {
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  menuItem: {
+    paddingVertical: 5,
+    fontSize: 16,
+    borderRadius: 4,
   },
   row: {
     flexDirection: 'row',
