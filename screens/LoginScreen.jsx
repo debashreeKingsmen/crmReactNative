@@ -11,7 +11,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 
 
-const LoginScreen = () => {
+const LoginScreen = ({ onLoginSuccess }) => {
   const navigation = useNavigation(); 
 
   const [password, setPassword] = useState('');
@@ -38,7 +38,7 @@ const LoginScreen = () => {
     Alert.alert('Success', 'Logging in...', [
       {
         text: 'OK',
-        onPress: () => navigation.navigate('Home'), // ✅ Navigate to Home
+        onPress: () => onLoginSuccess(), 
       },
     ]);
   };

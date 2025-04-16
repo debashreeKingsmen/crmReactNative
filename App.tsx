@@ -200,14 +200,33 @@
 
 
 
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import React,{useState} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import RootNavigator from './navigation/RootNavigator';
+import DrawerNavigator from './navigation/DrawerNavigator';
+import LoginScreen from './screens/LoginScreen';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+
+
   return (
     <NavigationContainer>
-      <RootNavigator />
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        {!isLoggedIn ? (
+          <Stack.Screen name="Login">
+            {() => <LoginScreen onLoginSuccess={() => setIsLoggedIn(true)} />}
+          </Stack.Screen>
+        ) : (
+          <Stack.Screen name="MainApp">
+          {() => <DrawerNavigator setIsLoggedIn={setIsLoggedIn} />}
+        </Stack.Screen>
+        )}
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

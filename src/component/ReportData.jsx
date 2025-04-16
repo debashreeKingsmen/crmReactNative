@@ -64,66 +64,66 @@ const ReportData = () => {
   const currentData = filteredData.slice(startIndex, endIndex);
 
 
-  const requestStoragePermission = async () => {
-    if (Platform.OS === 'android') {
-      try {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-          {
-            title: 'Storage Permission Required',
-            message: 'App needs access to your storage to download the file',
-            buttonNeutral: 'Ask Me Later',
-            buttonNegative: 'Cancel',
-            buttonPositive: 'OK',
-          },
-        );
-        return granted === PermissionsAndroid.RESULTS.GRANTED;
-      } catch (err) {
-        console.warn(err);
-        return false;
-      }
-    } else {
-      return true;
-    }
-  };
+  // const requestStoragePermission = async () => {
+  //   if (Platform.OS === 'android') {
+  //     try {
+  //       const granted = await PermissionsAndroid.request(
+  //         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+  //         {
+  //           title: 'Storage Permission Required',
+  //           message: 'App needs access to your storage to download the file',
+  //           buttonNeutral: 'Ask Me Later',
+  //           buttonNegative: 'Cancel',
+  //           buttonPositive: 'OK',
+  //         },
+  //       );
+  //       return granted === PermissionsAndroid.RESULTS.GRANTED;
+  //     } catch (err) {
+  //       console.warn(err);
+  //       return false;
+  //     }
+  //   } else {
+  //     return true;
+  //   }
+  // };
 
 
-  const exportToCSV = async () => {
-    const isPermitted = await requestStoragePermission();
-    if (!isPermitted) return;
+  // const exportToCSV = async () => {
+  //   const isPermitted = await requestStoragePermission();
+  //   if (!isPermitted) return;
   
-    const header = 'S.No,Name,Email,Outbound Calls\n';
-    const csvRows = currentData
-      .map(row => `${row.sl_no},${row.name},${row.email},${row.outbound_calls}`)
-      .join('\n');
-    const csvString = header + csvRows;
+  //   const header = 'S.No,Name,Email,Outbound Calls\n';
+  //   const csvRows = currentData
+  //     .map(row => `${row.sl_no},${row.name},${row.email},${row.outbound_calls}`)
+  //     .join('\n');
+  //   const csvString = header + csvRows;
   
-    const path = `${RNFS.DownloadDirectoryPath}/ReportData.csv`;
-    RNFS.writeFile(path, csvString, 'utf8')
-      .then(() => Alert.alert('Success', `CSV file saved to:\n${path}`))
-      .catch(err => console.log('CSV export error:', err));
-  };
+  //   const path = `${RNFS.DownloadDirectoryPath}/ReportData.csv`;
+  //   RNFS.writeFile(path, csvString, 'utf8')
+  //     .then(() => Alert.alert('Success', `CSV file saved to:\n${path}`))
+  //     .catch(err => console.log('CSV export error:', err));
+  // };
   
-  const exportToExcel = async () => {
-    const isPermitted = await requestStoragePermission();
-    if (!isPermitted) return;
+  // const exportToExcel = async () => {
+  //   const isPermitted = await requestStoragePermission();
+  //   if (!isPermitted) return;
   
-    const worksheet = XLSX.utils.json_to_sheet(currentData);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Report');
-    const excelData = XLSX.write(workbook, {type: 'binary', bookType: 'xlsx'});
+  //   const worksheet = XLSX.utils.json_to_sheet(currentData);
+  //   const workbook = XLSX.utils.book_new();
+  //   XLSX.utils.book_append_sheet(workbook, worksheet, 'Report');
+  //   const excelData = XLSX.write(workbook, {type: 'binary', bookType: 'xlsx'});
   
-    const buffer = new ArrayBuffer(excelData.length);
-    const view = new Uint8Array(buffer);
-    for (let i = 0; i < excelData.length; ++i) {
-      view[i] = excelData.charCodeAt(i) & 0xff;
-    }
+  //   const buffer = new ArrayBuffer(excelData.length);
+  //   const view = new Uint8Array(buffer);
+  //   for (let i = 0; i < excelData.length; ++i) {
+  //     view[i] = excelData.charCodeAt(i) & 0xff;
+  //   }
   
-    const path = `${RNFS.DownloadDirectoryPath}/ReportData.xlsx`;
-    RNFS.writeFile(path, buffer, 'ascii')
-      .then(() => Alert.alert('Success', `Excel file saved to:\n${path}`))
-      .catch(err => console.log('Excel export error:', err));
-  };
+  //   const path = `${RNFS.DownloadDirectoryPath}/ReportData.xlsx`;
+  //   RNFS.writeFile(path, buffer, 'ascii')
+  //     .then(() => Alert.alert('Success', `Excel file saved to:\n${path}`))
+  //     .catch(err => console.log('Excel export error:', err));
+  // };
   
   
 
@@ -172,10 +172,14 @@ const ReportData = () => {
           <TouchableOpacity>
             <Text style={styles.menuItem}>Download Format</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={exportToCSV}>
+          <TouchableOpacity 
+          // onPress={exportToCSV}
+          >
             <Text style={styles.menuItem}>Export as CSV</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={exportToExcel}>
+          <TouchableOpacity 
+          // onPress={exportToExcel}
+          >
             <Text style={styles.menuItem}>Export as Excel</Text>
           </TouchableOpacity>
         </View>

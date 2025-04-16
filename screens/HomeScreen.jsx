@@ -19,11 +19,11 @@ function HomeScreen() {
         style={{marginTop: 10}}
         onPress={() => navigation.navigate('Profile')}
       /> */}
-      <Button
+      {/* <Button
         style={{marginTop: 10}}
         onPress={() => navigation.navigate('Report Table')}>
         Check Report
-      </Button>
+      </Button> */}
     </View>
   );
 }

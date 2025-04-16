@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 const screenWidth = Dimensions.get('window').width;
-const cardWidth = (screenWidth - 48) / 2; // Adjusted for padding and margin
+const cardWidth = (screenWidth - 48) / 2; 
 
 export default function AdminSetting() {
   const [data, srtData] = useState([

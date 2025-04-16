@@ -1,69 +1,73 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {Image, TouchableOpacity, StyleSheet} from 'react-native';
+import {Image, TouchableOpacity, StyleSheet, View, Text} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+
 
 import HomeScreen from '../screens/HomeScreen';
 import LineChart from '../src/component/LineChart';
-import FeedScreen from '../screens/FeedScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import NotificationScreen from '../screens/NotificationScreen';
-import LoginScreen from '../screens/LoginScreen';
+import ReportData from '../src/component/ReportData';
+
+import CustomDrawerContent from '../screens/CustomDrawerContent';
+import AdminSetting from '../src/component/AdminSetting';
 
 const Drawer = createDrawerNavigator();
 
 function HeaderIcons() {
   const navigation = useNavigation();
-  return (
-   <>
-   
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Notification')}
-        style={[styles.iconWrapper, {marginRight: 15}]}>
-        <Image
-          source={require('../assets/notification.png')}
-          style={styles.icon}
-        />
-      </TouchableOpacity>
+  const [menuVisible, setMenuVisible] = useState(false);
 
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Profile')}
-        style={{marginRight: 15}}>
+  const toggleMenu = () => {
+    setMenuVisible(!menuVisible);
+  };
+  return (
+    <>
+      <TouchableOpacity onPress={toggleMenu} style={{marginRight: 15}}>
         <Image
           source={{uri: 'https://randomuser.me/api/portraits/men/62.jpg'}}
           style={styles.profile}
         />
       </TouchableOpacity>
-   </>
+
+      {menuVisible && (
+        <View style={styles.menu}>
+          <Text>👋 Hey, Kings Link</Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Admin Setting')}>
+            <Text style={styles.menuItem}>Admin Setting</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+            <Text style={styles.menuItem}>Profile Setting</Text>
+          </TouchableOpacity>
+          
+        </View>
+      )}
+    </>
   );
 }
 
-export default function DrawerNavigator() {
+export default function DrawerNavigator({setIsLoggedIn}) {
   return (
-    <Drawer.Screen  screenOptions={{
-        headerStyle: {
-          backgroundColor: '#8d6e63', 
-        },
-        headerTintColor: '#fff', 
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },
-      }} initialRouteName="Login">
-        <Drawer.Navigator
+    <Drawer.Navigator
+      initialRouteName="Home"
+      drawerContent={props => (
+        <CustomDrawerContent {...props} setIsLoggedIn={setIsLoggedIn} />
+      )}
       screenOptions={{
         headerStyle: {backgroundColor: '#8d6e63'},
         headerTintColor: '#fff',
         headerTitleStyle: {fontWeight: 'bold'},
         headerRight: () => <HeaderIcons />,
       }}>
-        {/* <Drawer.Screen name="Login" component={LoginScreen}/> */}
       <Drawer.Screen name="Home" component={HomeScreen} />
+      <Drawer.Screen name="Report Table" component={ReportData} />
       <Drawer.Screen name="LineChart" component={LineChart} />
-      <Drawer.Screen name="Feed" component={FeedScreen} />
-      <Drawer.Screen name="Profile" component={ProfileScreen} />
       <Drawer.Screen name="Notification" component={NotificationScreen} />
+      <Drawer.Screen name="Profile" component={ProfileScreen} />
+      <Drawer.Screen name="Admin Setting" component={AdminSetting} />
     </Drawer.Navigator>
-    </Drawer.Screen>
   );
 }
 
@@ -84,5 +88,29 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderWidth: 1,
     borderColor: '#fff',
+  },
+  menu: {
+    position: 'absolute',
+    cursor: 'pointer',
+    top: 50,
+    right: 11,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 10,
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    zIndex: 1,
+  },
+  menuTitle: {
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  menuItem: {
+    paddingVertical: 5,
+    fontSize: 16,
+    borderRadius: 4,
   },
 });
