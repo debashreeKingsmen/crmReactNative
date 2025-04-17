@@ -256,12 +256,12 @@ const ReportData = () => {
             <Text style={styles.menuItem}>Download Format</Text>
           </TouchableOpacity>
           <TouchableOpacity
-          // onPress={exportToCSV}
+          onPress={exportToCSV}
           >
             <Text style={styles.menuItem}>Export as CSV</Text>
           </TouchableOpacity>
           <TouchableOpacity
-          // onPress={exportToExcel}
+          onPress={exportToExcel}
           >
             <Text style={styles.menuItem}>Export as Excel</Text>
           </TouchableOpacity>
