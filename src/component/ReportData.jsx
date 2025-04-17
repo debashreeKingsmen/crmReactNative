@@ -8,9 +8,8 @@ import {
   View,
   TouchableOpacity,
   PermissionsAndroid,
-   Platform, 
-   Alert
-
+  Platform,
+  Alert,
 } from 'react-native';
 import React, {useState} from 'react';
 import XLSX from 'xlsx';
@@ -19,26 +18,115 @@ import RNFS from 'react-native-fs';
 const ReportData = () => {
   const [data, setData] = useState([
     {sl_no: 1, name: 'John Doe', email: 'doe@example.com', outbound_calls: 25},
-    {sl_no: 2, name: 'Jane Smith', email: 'smith@example.com', outbound_calls: 30},
-    {sl_no: 3, name: 'Robert Johnson', email: 'robert@example.com', outbound_calls: 15},
-    {sl_no: 4, name: 'Emily Davis', email: 'davis@example.com', outbound_calls: 40},
-    {sl_no: 5, name: 'Michael Brown', email: 'brown@example.com', outbound_calls: 22},
-    {sl_no: 6, name: 'Sarah Wilson', email: 'wilson@example.com', outbound_calls: 18},
+    {
+      sl_no: 2,
+      name: 'Jane Smith',
+      email: 'smith@example.com',
+      outbound_calls: 30,
+    },
+    {
+      sl_no: 3,
+      name: 'Robert Johnson',
+      email: 'robert@example.com',
+      outbound_calls: 15,
+    },
+    {
+      sl_no: 4,
+      name: 'Emily Davis',
+      email: 'davis@example.com',
+      outbound_calls: 40,
+    },
+    {
+      sl_no: 5,
+      name: 'Michael Brown',
+      email: 'brown@example.com',
+      outbound_calls: 22,
+    },
+    {
+      sl_no: 6,
+      name: 'Sarah Wilson',
+      email: 'wilson@example.com',
+      outbound_calls: 18,
+    },
     {sl_no: 7, name: 'David Lee', email: 'lee@example.com', outbound_calls: 35},
-    {sl_no: 8, name: 'Laura White', email: 'white@example.com', outbound_calls: 28},
-    {sl_no: 9, name: 'James Anderson', email: 'anderson@example.com', outbound_calls: 20},
-    {sl_no: 10, name: 'Olivia Martinez', email: 'olivia@example.com', outbound_calls: 27},
-    {sl_no: 11, name: 'Daniel Harris', email: 'harris@example.com', outbound_calls: 24},
-    {sl_no: 12, name: 'Sophia Clark', email: 'sophia@example.com', outbound_calls: 32},
-    {sl_no: 13, name: 'Benjamin Hall', email: 'benjamin@example.com', outbound_calls: 29},
-    {sl_no: 14, name: 'Ava Lewis', email: 'ava@example.com', outbound_calls: 21},
-    {sl_no: 15, name: 'Matthew Walker', email: 'matthew@example.com', outbound_calls: 26},
-    {sl_no: 16, name: 'Chloe Young', email: 'chloe@example.com', outbound_calls: 33},
-    {sl_no: 17, name: 'Anthony Allen', email: 'anthony@example.com', outbound_calls: 19},
-    {sl_no: 18, name: 'Grace King', email: 'grace@example.com', outbound_calls: 34},
-    {sl_no: 19, name: 'Andrew Scott', email: 'andrew@example.com', outbound_calls: 31},
-    {sl_no: 20, name: 'Ella Green', email: 'ella@example.com', outbound_calls: 23},
-   
+    {
+      sl_no: 8,
+      name: 'Laura White',
+      email: 'white@example.com',
+      outbound_calls: 28,
+    },
+    {
+      sl_no: 9,
+      name: 'James Anderson',
+      email: 'anderson@example.com',
+      outbound_calls: 20,
+    },
+    {
+      sl_no: 10,
+      name: 'Olivia Martinez',
+      email: 'olivia@example.com',
+      outbound_calls: 27,
+    },
+    {
+      sl_no: 11,
+      name: 'Daniel Harris',
+      email: 'harris@example.com',
+      outbound_calls: 24,
+    },
+    {
+      sl_no: 12,
+      name: 'Sophia Clark',
+      email: 'sophia@example.com',
+      outbound_calls: 32,
+    },
+    {
+      sl_no: 13,
+      name: 'Benjamin Hall',
+      email: 'benjamin@example.com',
+      outbound_calls: 29,
+    },
+    {
+      sl_no: 14,
+      name: 'Ava Lewis',
+      email: 'ava@example.com',
+      outbound_calls: 21,
+    },
+    {
+      sl_no: 15,
+      name: 'Matthew Walker',
+      email: 'matthew@example.com',
+      outbound_calls: 26,
+    },
+    {
+      sl_no: 16,
+      name: 'Chloe Young',
+      email: 'chloe@example.com',
+      outbound_calls: 33,
+    },
+    {
+      sl_no: 17,
+      name: 'Anthony Allen',
+      email: 'anthony@example.com',
+      outbound_calls: 19,
+    },
+    {
+      sl_no: 18,
+      name: 'Grace King',
+      email: 'grace@example.com',
+      outbound_calls: 34,
+    },
+    {
+      sl_no: 19,
+      name: 'Andrew Scott',
+      email: 'andrew@example.com',
+      outbound_calls: 31,
+    },
+    {
+      sl_no: 20,
+      name: 'Ella Green',
+      email: 'ella@example.com',
+      outbound_calls: 23,
+    },
   ]);
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -48,7 +136,6 @@ const ReportData = () => {
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
-
 
   const itemsPerPage = 5;
 
@@ -63,69 +150,65 @@ const ReportData = () => {
   const endIndex = startIndex + itemsPerPage;
   const currentData = filteredData.slice(startIndex, endIndex);
 
+  const requestStoragePermission = async () => {
+    if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: 'Storage Permission Required',
+            message: 'App needs access to your storage to download the file',
+            buttonNeutral: 'Ask Me Later',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK',
+          },
+        );
+        return granted === PermissionsAndroid.RESULTS.GRANTED;
+      } catch (err) {
+        console.warn(err);
+        return false;
+      }
+    } else {
+      return true;
+    }
+  };
 
-  // const requestStoragePermission = async () => {
-  //   if (Platform.OS === 'android') {
-  //     try {
-  //       const granted = await PermissionsAndroid.request(
-  //         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-  //         {
-  //           title: 'Storage Permission Required',
-  //           message: 'App needs access to your storage to download the file',
-  //           buttonNeutral: 'Ask Me Later',
-  //           buttonNegative: 'Cancel',
-  //           buttonPositive: 'OK',
-  //         },
-  //       );
-  //       return granted === PermissionsAndroid.RESULTS.GRANTED;
-  //     } catch (err) {
-  //       console.warn(err);
-  //       return false;
-  //     }
-  //   } else {
-  //     return true;
-  //   }
-  // };
+  const exportToCSV = async () => {
+    const isPermitted = await requestStoragePermission();
+    if (!isPermitted) return;
 
+    const header = 'S.No,Name,Email,Outbound Calls\n';
+    const csvRows = currentData
+      .map(row => `${row.sl_no},${row.name},${row.email},${row.outbound_calls}`)
+      .join('\n');
+    const csvString = header + csvRows;
 
-  // const exportToCSV = async () => {
-  //   const isPermitted = await requestStoragePermission();
-  //   if (!isPermitted) return;
-  
-  //   const header = 'S.No,Name,Email,Outbound Calls\n';
-  //   const csvRows = currentData
-  //     .map(row => `${row.sl_no},${row.name},${row.email},${row.outbound_calls}`)
-  //     .join('\n');
-  //   const csvString = header + csvRows;
-  
-  //   const path = `${RNFS.DownloadDirectoryPath}/ReportData.csv`;
-  //   RNFS.writeFile(path, csvString, 'utf8')
-  //     .then(() => Alert.alert('Success', `CSV file saved to:\n${path}`))
-  //     .catch(err => console.log('CSV export error:', err));
-  // };
-  
-  // const exportToExcel = async () => {
-  //   const isPermitted = await requestStoragePermission();
-  //   if (!isPermitted) return;
-  
-  //   const worksheet = XLSX.utils.json_to_sheet(currentData);
-  //   const workbook = XLSX.utils.book_new();
-  //   XLSX.utils.book_append_sheet(workbook, worksheet, 'Report');
-  //   const excelData = XLSX.write(workbook, {type: 'binary', bookType: 'xlsx'});
-  
-  //   const buffer = new ArrayBuffer(excelData.length);
-  //   const view = new Uint8Array(buffer);
-  //   for (let i = 0; i < excelData.length; ++i) {
-  //     view[i] = excelData.charCodeAt(i) & 0xff;
-  //   }
-  
-  //   const path = `${RNFS.DownloadDirectoryPath}/ReportData.xlsx`;
-  //   RNFS.writeFile(path, buffer, 'ascii')
-  //     .then(() => Alert.alert('Success', `Excel file saved to:\n${path}`))
-  //     .catch(err => console.log('Excel export error:', err));
-  // };
-  
-  
+    const path = `${RNFS.DownloadDirectoryPath}/ReportData.csv`;
+    RNFS.writeFile(path, csvString, 'utf8')
+      .then(() => Alert.alert('Success', `CSV file saved to:\n${path}`))
+      .catch(err => console.log('CSV export error:', err));
+  };
+
+  const exportToExcel = async () => {
+    const isPermitted = await requestStoragePermission();
+    if (!isPermitted) return;
+
+    const worksheet = XLSX.utils.json_to_sheet(currentData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Report');
+    const excelData = XLSX.write(workbook, {type: 'binary', bookType: 'xlsx'});
+
+    const buffer = new ArrayBuffer(excelData.length);
+    const view = new Uint8Array(buffer);
+    for (let i = 0; i < excelData.length; ++i) {
+      view[i] = excelData.charCodeAt(i) & 0xff;
+    }
+
+    const path = `${RNFS.DownloadDirectoryPath}/ReportData.xlsx`;
+    RNFS.writeFile(path, buffer, 'ascii')
+      .then(() => Alert.alert('Success', `Excel file saved to:\n${path}`))
+      .catch(err => console.log('Excel export error:', err));
+  };
 
   const renderItem = ({item}) => (
     <View style={styles.row}>
@@ -156,7 +239,7 @@ const ReportData = () => {
             setCurrentPage(1); // Reset to first page on search
           }}
         />
-          <TouchableOpacity onPress={toggleMenu}>
+        <TouchableOpacity onPress={toggleMenu}>
           <Image
             source={require('../../assets/app.png')}
             style={{width: 25, height: 25}}
@@ -172,12 +255,12 @@ const ReportData = () => {
           <TouchableOpacity>
             <Text style={styles.menuItem}>Download Format</Text>
           </TouchableOpacity>
-          <TouchableOpacity 
+          <TouchableOpacity
           // onPress={exportToCSV}
           >
             <Text style={styles.menuItem}>Export as CSV</Text>
           </TouchableOpacity>
-          <TouchableOpacity 
+          <TouchableOpacity
           // onPress={exportToExcel}
           >
             <Text style={styles.menuItem}>Export as Excel</Text>
@@ -216,7 +299,10 @@ const ReportData = () => {
         <TouchableOpacity
           onPress={handleNext}
           disabled={currentPage === totalPages}
-          style={[styles.pageButton, currentPage === totalPages && styles.disabledBtn]}>
+          style={[
+            styles.pageButton,
+            currentPage === totalPages && styles.disabledBtn,
+          ]}>
           <Text>Next</Text>
         </TouchableOpacity>
       </View>
