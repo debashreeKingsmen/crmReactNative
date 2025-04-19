@@ -1,14 +1,13 @@
+import { useNavigation } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
   Image,
-  TouchableOpacity,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {useEffect, useState} from 'react';
-import {deleteMyPost, myFetchGetRequest} from '../src/component/MyFetchApiReq';
+import { myFetchGetRequest } from '../src/component/MyFetchApiReq';
 
 export default function FeedScreen() {
   const navigation = useNavigation();

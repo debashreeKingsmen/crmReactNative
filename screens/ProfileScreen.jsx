@@ -58,8 +58,6 @@ export default function ProfileScreen() {
         <InfoItem icon="📧" text={email} />
       </View>
 
-      {/* Modal for Edit */}
-
       <Modal transparent={true} visible={modalVisible} animationType="slide">
         <View style={styles.modalOverlay}>
           <View style={styles.modalBox}>
@@ -101,16 +99,6 @@ export default function ProfileScreen() {
         </View>
       </Modal>
 
-
-       {/* {menuVisible && (
-              <View style={styles.menu}>
-                <Text style={styles.menuTitle}>👋 Hey, Kings Link</Text>
-                <Text style={styles.menuItem}>Home</Text>
-                <Text style={styles.menuItem}>Admin Settings</Text>
-                <Text style={styles.menuItem}>Profile Settings</Text>
-                <Text style={styles.logout}>Log out</Text>
-              </View>
-            )} */}
     </ScrollView>
   );
 }
