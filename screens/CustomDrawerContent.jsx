@@ -19,7 +19,6 @@ export default function CustomDrawerContent(props) {
         <Text style={styles.logoText}>Kings Link</Text>
       </View>
 
-      {/* Drawer Items */}
       <DrawerContentScrollView {...props} contentContainerStyle={{ flexGrow: 1 }}>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
@@ -29,10 +28,7 @@ export default function CustomDrawerContent(props) {
         style={styles.logoutButton}
         onPress={() => props.setIsLoggedIn(false)}
       >
-        {/* <Image
-          source={require('../assets/logout.png')}
-          style={styles.logoutIcon}
-        /> */}
+       
         <Text style={styles.logoutText}>Logout</Text>
       </TouchableOpacity>
     </View>

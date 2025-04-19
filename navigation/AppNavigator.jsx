@@ -1,14 +1,14 @@
-// AppNavigator.js
+
 import React, { useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import LoginScreen from '../screens/LoginScreen'; // your Login screen
-import DrawerNavigator from './DrawerNavigator';  // your Drawer that includes Home, LineChart
+import LoginScreen from '../screens/LoginScreen'; 
+import DrawerNavigator from './DrawerNavigator'; 
 
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Local login state
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>

@@ -67,7 +67,6 @@ const LoginScreen = ({ onLoginSuccess }) => {
           />
         </View>
 
-        {/* Email */}
         <View style={{ marginBottom: 15 }}>
           <Text style={{ color: '#666', marginBottom: 5 }}>Email ID</Text>
           <TextInput
@@ -86,7 +85,6 @@ const LoginScreen = ({ onLoginSuccess }) => {
           />
         </View>
 
-        {/* Password */}
         <View style={{ marginBottom: 15 }}>
           <Text style={{ color: '#666', marginBottom: 5 }}>Password</Text>
           <View
@@ -119,7 +117,6 @@ const LoginScreen = ({ onLoginSuccess }) => {
           </View>
         </View>
 
-        {/* Login Button */}
         <TouchableOpacity
           style={{
             backgroundColor: '#8d6e63',
