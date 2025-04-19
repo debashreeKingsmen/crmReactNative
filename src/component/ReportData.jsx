@@ -249,9 +249,7 @@ const ReportData = () => {
 
       {menuVisible && (
         <View style={styles.menu}>
-          {/* <TouchableOpacity>
-            <Text style={styles.menuItem}>Manage Column</Text>
-          </TouchableOpacity> */}
+          
           <TouchableOpacity>
             <Text style={styles.menuItem}>Download Format</Text>
           </TouchableOpacity>
