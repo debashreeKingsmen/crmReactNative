@@ -108,14 +108,14 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: '#60B5F2',
+    backgroundColor: '#60B512',
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 3,
   },
   icon: {
-    width: 24,
-    height: 24,
+    width: 23,
+    height: 23,
     resizeMode: 'contain',
   },
 });
