@@ -19,10 +19,10 @@ const InfoItem = ({icon, text}) => (
 
 export default function ProfileScreen() {
   const [modalVisible, setModalVisible] = useState(false);
-  const [firstName, setFirstName] = useState('Adarsh');
-  const [lastName, setLastName] = useState('KN');
-  const [phone, setPhone] = useState('7349747659');
-  const [email, setEmail] = useState('adarsh@kingsmenrealty.com');
+  const [firstName, setFirstName] = useState('Demo');
+  const [lastName, setLastName] = useState('USer');
+  const [phone, setPhone] = useState('1234567890');
+  const [email, setEmail] = useState('demo@kingsmenrealty.com');
 
   return (
     <ScrollView style={{flex: 1, backgroundColor: '#fff'}}>
