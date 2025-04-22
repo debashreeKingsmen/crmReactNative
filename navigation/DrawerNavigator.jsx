@@ -12,6 +12,7 @@ import ReportData from '../src/component/ReportData';
 
 import CustomDrawerContent from '../screens/CustomDrawerContent';
 import AdminSetting from '../src/component/AdminSetting';
+import Properties from '../src/component/Properties';
 
 const Drawer = createDrawerNavigator();
 
@@ -64,6 +65,7 @@ export default function DrawerNavigator({setIsLoggedIn}) {
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Report Table" component={ReportData} />
       <Drawer.Screen name="LineChart" component={LineChart} />
+      <Drawer.Screen name="Properties" component={Properties} />
       <Drawer.Screen name="Notification" component={NotificationScreen} />
       <Drawer.Screen name="Profile" component={ProfileScreen} />
       <Drawer.Screen name="Admin Setting" component={AdminSetting} />
