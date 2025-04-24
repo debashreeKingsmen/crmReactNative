@@ -1,10 +1,17 @@
 import React from 'react';
-import { View, Text, TextInput, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  ScrollView,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 
-const AddPropertyScreen = ({ navigation }) => {
+const AddPropertyScreen = ({navigation}) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
-    <View style={styles.header}>
+      <View style={styles.header}>
         <Text style={styles.title}>Add Property</Text>
       </View>
 
@@ -12,27 +19,31 @@ const AddPropertyScreen = ({ navigation }) => {
       <TextInput style={styles.input} placeholder="Project Name" />
       <TextInput style={styles.input} placeholder="Property Type" />
       <TextInput style={styles.input} placeholder="Construction Status" />
-      <TextInput style={styles.input} placeholder="Select Construction Status" />
+      <TextInput
+        style={styles.input}
+        placeholder="Select Construction Status"
+      />
 
-        <TextInput style={styles.input} placeholder="Total Land Parcel" />
-        <TextInput style={styles.input} placeholder="Total Number Of units" />
+      <TextInput style={styles.input} placeholder="Total Land Parcel" />
+      <TextInput style={styles.input} placeholder="Total Number Of units" />
 
-        <TextInput style={styles.input} placeholder="Unit Details (Size&Price)" />
-        <TextInput style={styles.input} placeholder="Basic Price" />
+      <TextInput style={styles.input} placeholder="Unit Details (Size&Price)" />
+      <TextInput style={styles.input} placeholder="Basic Price" />
 
-        <TextInput style={styles.input} placeholder="Open Space" />
-        <TextInput style={styles.input} placeholder="Amenities" />
+      <TextInput style={styles.input} placeholder="Open Space" />
+      <TextInput style={styles.input} placeholder="Amenities" />
 
-        <TextInput style={styles.input} placeholder="Club-House Area" />
-        <TextInput style={styles.input} placeholder="Number Of Club-House" />
-
+      <TextInput style={styles.input} placeholder="Club-House Area" />
+      <TextInput style={styles.input} placeholder="Number Of Club-House" />
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.saveBtn}>
-          <Text style={{ color: '#fff' }}>Save</Text>
+          <Text style={{color: '#fff'}}>Save</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.cancelBtn} onPress={() => navigation.goBack()}>
-          <Text style={{ color: '#8d6e63' }}>Close</Text>
+        <TouchableOpacity
+          style={styles.cancelBtn}
+          onPress={() => navigation.goBack()}>
+          <Text style={{color: '#8d6e63'}}>Close</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -40,7 +51,7 @@ const AddPropertyScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: { padding: 20 },
+  container: {padding: 20},
   header: {
     backgroundColor: '#8d6e63',
     padding: 15,
@@ -61,9 +72,18 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: '#f9f9f9',
   },
-  buttonContainer: { flexDirection: 'row', justifyContent: 'center', marginTop: 20 },
-  saveBtn: { backgroundColor: '#795548', padding: 12, borderRadius: 8, marginRight: 10 },
-  cancelBtn: { backgroundColor: '#fddede', padding: 12, borderRadius: 8 },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  saveBtn: {
+    backgroundColor: '#795548',
+    padding: 12,
+    borderRadius: 8,
+    marginRight: 10,
+  },
+  cancelBtn: {backgroundColor: '#fddede', padding: 12, borderRadius: 8},
 });
 
 export default AddPropertyScreen;
