@@ -4,17 +4,27 @@ import { View, Text, TextInput, ScrollView, TouchableOpacity, StyleSheet } from 
 const AddPropertyScreen = ({ navigation }) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Add Property</Text>
-
-      <View style={styles.row}>
-        <TextInput style={styles.input} placeholder="Developer Name" />
-        <TextInput style={styles.input} placeholder="Project Name" />
+    <View style={styles.header}>
+        <Text style={styles.title}>Add Property</Text>
       </View>
 
-      <View style={styles.row}>
-        <TextInput style={styles.input} placeholder="Property Type" />
-        <TextInput style={styles.input} placeholder="Construction Status" />
-      </View>
+      <TextInput style={styles.input} placeholder="Developer Name" />
+      <TextInput style={styles.input} placeholder="Project Name" />
+      <TextInput style={styles.input} placeholder="Property Type" />
+      <TextInput style={styles.input} placeholder="Construction Status" />
+      <TextInput style={styles.input} placeholder="Select Construction Status" />
+
+        <TextInput style={styles.input} placeholder="Total Land Parcel" />
+        <TextInput style={styles.input} placeholder="Total Number Of units" />
+
+        <TextInput style={styles.input} placeholder="Unit Details (Size&Price)" />
+        <TextInput style={styles.input} placeholder="Basic Price" />
+
+        <TextInput style={styles.input} placeholder="Open Space" />
+        <TextInput style={styles.input} placeholder="Amenities" />
+
+        <TextInput style={styles.input} placeholder="Club-House Area" />
+        <TextInput style={styles.input} placeholder="Number Of Club-House" />
 
 
       <View style={styles.buttonContainer}>
@@ -31,11 +41,20 @@ const AddPropertyScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: { padding: 20 },
-  title: { fontSize: 22, fontWeight: 'bold', marginBottom: 20 },
-  row: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 },
+  header: {
+    backgroundColor: '#8d6e63',
+    padding: 15,
+    borderRadius: 8,
+    marginBottom: 20,
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center',
+  },
   input: {
-    flex: 1,
-    marginHorizontal: 5,
+    marginBottom: 15,
     borderWidth: 1,
     borderColor: '#ddd',
     padding: 10,
