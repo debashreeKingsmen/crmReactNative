@@ -17,8 +17,8 @@ const AddPropertyScreen = ({navigation}) => {
 
       <TextInput style={styles.input} placeholder="Developer Name" />
       <TextInput style={styles.input} placeholder="Project Name" />
-      <TextInput style={styles.input} placeholder="Property Type" />
-      <TextInput style={styles.input} placeholder="Construction Status" />
+
+      <TextInput style={styles.input} placeholder="Select Property Type" />
       <TextInput
         style={styles.input}
         placeholder="Select Construction Status"
@@ -30,11 +30,19 @@ const AddPropertyScreen = ({navigation}) => {
       <TextInput style={styles.input} placeholder="Unit Details (Size&Price)" />
       <TextInput style={styles.input} placeholder="Basic Price" />
 
+      <TextInput style={styles.input} placeholder="All Inclusive Price" />
+      <TextInput style={styles.input} placeholder="Possession Date" />
+
       <TextInput style={styles.input} placeholder="Open Space" />
       <TextInput style={styles.input} placeholder="Amenities" />
 
       <TextInput style={styles.input} placeholder="Club-House Area" />
       <TextInput style={styles.input} placeholder="Number Of Club-House" />
+
+      <TextInput style={styles.input} placeholder=" Select Region" />
+      <TextInput style={styles.input} placeholder="Land Mark-1" />
+      <TextInput style={styles.input} placeholder="Land Mark-2" />
+      <TextInput style={styles.input} placeholder="Land Mark-3" />
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.saveBtn}>
@@ -43,7 +51,7 @@ const AddPropertyScreen = ({navigation}) => {
         <TouchableOpacity
           style={styles.cancelBtn}
           onPress={() => navigation.goBack()}>
-          <Text style={{color: '#8d6e63'}}>Close</Text>
+          <Text style={{color: '#C5172E'}}>Close</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

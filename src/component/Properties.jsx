@@ -4,23 +4,36 @@ import {
   ScrollView,
   StyleSheet,
   Image,
+  TextInput,
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 
 export default function Properties() {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.subContainer}>
         <Text style={styles.heading}>Properties</Text>
+
         <TouchableOpacity onPress={() => navigation.navigate('AddProperty')}>
           <Image
             source={require('../../assets/add.png')}
             style={styles.imagePlus}
           />
         </TouchableOpacity>
+      </View>
+      <View style={styles.parent}>
+        <TextInput
+          style={styles.input}
+          placeholder="Search here.."
+          // value={searchQuery}
+          onChangeText={text => {
+            setSearchQuery(text);
+            setCurrentPage(1);
+          }}
+        />
       </View>
     </ScrollView>
   );
@@ -47,5 +60,17 @@ const styles = StyleSheet.create({
     width: 26,
     height: 26,
     borderRadius: 15,
+  },
+  parent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingBottom: 10,
+  },
+  input: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 8,
+    borderRadius: 5,
   },
 });
