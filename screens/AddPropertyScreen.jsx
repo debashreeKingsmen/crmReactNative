@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 
 const AddPropertyScreen = ({navigation}) => {
+  const [propertyType, setPropertyType] = useState('');
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
@@ -18,12 +20,17 @@ const AddPropertyScreen = ({navigation}) => {
       <TextInput style={styles.input} placeholder="Developer Name" />
       <TextInput style={styles.input} placeholder="Project Name" />
 
-      <TextInput style={styles.input} placeholder="Select Property Type" />
+      <TextInput style={styles.input} placeholder="Property Type" />
+
       <TextInput
         style={styles.input}
         placeholder="Select Construction Status"
       />
 
+      {/* <TextInput
+        style={styles.input}
+        placeholder="Select Construction Status"
+      /> */}
       <TextInput style={styles.input} placeholder="Total Land Parcel" />
       <TextInput style={styles.input} placeholder="Total Number Of units" />
 
@@ -91,6 +98,18 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginRight: 10,
   },
+  pickerWrapper: {
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    marginBottom: 15,
+    backgroundColor: '#f9f9f9',
+  },
+  picker: {
+    height: 50,
+    width: '100%',
+  },
+
   cancelBtn: {backgroundColor: '#fddede', padding: 12, borderRadius: 8},
 });
 
