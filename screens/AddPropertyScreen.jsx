@@ -7,9 +7,54 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import axios from 'axios';
 
 const AddPropertyScreen = ({navigation}) => {
-  const [propertyType, setPropertyType] = useState('');
+  const [developerName, setDeveloperName] = useState('');
+  const [projectName, setProjectName] = useState('');
+  const [totalLandParcel, setTotalLandParcel] = useState('');
+  const [totalUnits, setTotalUnits] = useState('');
+  const [unitDetails, setUnitDetails] = useState('');
+  const [basicPrice, setBasicPrice] = useState('');
+  const [allInclusivePrice, setAllInclusivePrice] = useState('');
+  const [openSpace, setOpenSpace] = useState('');
+  const [amenities, setAmenities] = useState('');
+  const [clubHouseArea, setClubHouseArea] = useState('');
+  const [numberOfClubHouse, setNumberOfClubHouse] = useState('');
+  const [landmark1, setLandmark1] = useState('');
+  const [landmark2, setLandmark2] = useState('');
+  const [landmark3, setLandmark3] = useState('');
+
+  const handleSave = async () => {
+    try {
+      const response = await axios.post(
+        'http://192.168.0.106:5000/add-property',
+        {
+          developerName,
+          projectName,
+          totalLandParcel,
+          totalUnits,
+          unitDetails,
+          basicPrice,
+          allInclusivePrice,
+          openSpace,
+          amenities,
+          clubHouseArea,
+          numberOfClubHouse,
+          landmark1,
+          landmark2,
+          landmark3,
+        },
+      );
+
+      console.log('Saved Successfully:', response.data);
+      alert('Property Saved Successfully!');
+      navigation.goBack();
+    } catch (error) {
+      console.error('Error saving property:', error);
+      alert('Failed to save property. Please try again.');
+    }
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -17,42 +62,100 @@ const AddPropertyScreen = ({navigation}) => {
         <Text style={styles.title}>Add Property</Text>
       </View>
 
-      <TextInput style={styles.input} placeholder="Developer Name" />
-      <TextInput style={styles.input} placeholder="Project Name" />
-
-      <TextInput style={styles.input} placeholder="Property Type" />
+      <TextInput
+        style={styles.input}
+        placeholder="Developer Name"
+        value={developerName}
+        onChangeText={setDeveloperName}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Project Name"
+        value={projectName}
+        onChangeText={setProjectName}
+      />
 
       <TextInput
         style={styles.input}
-        placeholder="Select Construction Status"
+        placeholder="Total Land Parcel"
+        value={totalLandParcel}
+        onChangeText={setTotalLandParcel}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Total Number Of units"
+        value={totalUnits}
+        onChangeText={setTotalUnits}
       />
 
-      {/* <TextInput
+      <TextInput
         style={styles.input}
-        placeholder="Select Construction Status"
-      /> */}
-      <TextInput style={styles.input} placeholder="Total Land Parcel" />
-      <TextInput style={styles.input} placeholder="Total Number Of units" />
+        placeholder="Unit Details (Size&Price)"
+        value={unitDetails}
+        onChangeText={setUnitDetails}
+      />
 
-      <TextInput style={styles.input} placeholder="Unit Details (Size&Price)" />
-      <TextInput style={styles.input} placeholder="Basic Price" />
+      <TextInput
+        style={styles.input}
+        placeholder="Basic Price"
+        value={basicPrice}
+        onChangeText={setBasicPrice}
+      />
 
-      <TextInput style={styles.input} placeholder="All Inclusive Price" />
-      <TextInput style={styles.input} placeholder="Possession Date" />
+      <TextInput
+        style={styles.input}
+        placeholder="All Inclusive Price"
+        value={allInclusivePrice}
+        onChangeText={setAllInclusivePrice}
+      />
 
-      <TextInput style={styles.input} placeholder="Open Space" />
-      <TextInput style={styles.input} placeholder="Amenities" />
+      <TextInput
+        style={styles.input}
+        placeholder="Open Space"
+        value={openSpace}
+        onChangeText={setOpenSpace}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Amenities"
+        value={amenities}
+        onChangeText={setAmenities}
+      />
 
-      <TextInput style={styles.input} placeholder="Club-House Area" />
-      <TextInput style={styles.input} placeholder="Number Of Club-House" />
+      <TextInput
+        style={styles.input}
+        placeholder="Club-House Area"
+        value={clubHouseArea}
+        onChangeText={setClubHouseArea}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Number Of Club-House"
+        value={numberOfClubHouse}
+        onChangeText={setNumberOfClubHouse}
+      />
 
-      <TextInput style={styles.input} placeholder=" Select Region" />
-      <TextInput style={styles.input} placeholder="Land Mark-1" />
-      <TextInput style={styles.input} placeholder="Land Mark-2" />
-      <TextInput style={styles.input} placeholder="Land Mark-3" />
+      <TextInput
+        style={styles.input}
+        placeholder="Land Mark-1"
+        value={landmark1}
+        onChangeText={setLandmark1}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Land Mark-2"
+        value={landmark2}
+        onChangeText={setLandmark2}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Land Mark-3"
+        value={landmark3}
+        onChangeText={setLandmark3}
+      />
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.saveBtn}>
+        <TouchableOpacity style={styles.saveBtn} onPress={handleSave}>
           <Text style={{color: '#fff'}}>Save</Text>
         </TouchableOpacity>
         <TouchableOpacity
