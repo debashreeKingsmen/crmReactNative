@@ -27,6 +27,7 @@ export default function Properties() {
     }
   }, [isFocused]);
 
+  //fetch all property
   const fetchProperties = async () => {
     try {
       setLoading(true);
@@ -39,6 +40,8 @@ export default function Properties() {
     }
   };
 
+
+  //delete by id
   const deleteProperty = async (id) => {
     console.log('Deleting property with id:', id); 
     try {
