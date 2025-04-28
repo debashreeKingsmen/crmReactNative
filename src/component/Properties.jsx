@@ -27,7 +27,7 @@ export default function Properties() {
     }
   }, [isFocused]);
 
-  //fetch all property
+  //fetch all properties
   const fetchProperties = async () => {
     try {
       setLoading(true);
